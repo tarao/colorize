@@ -9,6 +9,7 @@ import (
 	"syscall"
 
 	"github.com/Songmu/wrapcommander"
+	"github.com/mattn/go-colorable"
 )
 
 func main() {
@@ -104,7 +105,8 @@ func main() {
 	outDone := make(chan struct{})
 	go func() {
 		defer stdout.Close()
-		if err := outPipe.Copy(os.Stdout, stdout); err != nil {
+		output := colorable.NewColorableStdout()
+		if err := outPipe.Copy(output, stdout); err != nil {
 			fmt.Fprintln(os.Stderr, err.Error())
 		}
 		outDone <- struct{}{}
@@ -113,7 +115,8 @@ func main() {
 	errDone := make(chan struct{})
 	go func() {
 		defer stderr.Close()
-		if err := errPipe.Copy(os.Stderr, stderr); err != nil {
+		output := colorable.NewColorableStderr()
+		if err := errPipe.Copy(output, stderr); err != nil {
 			fmt.Fprintln(os.Stderr, err.Error())
 		}
 		errDone <- struct{}{}
