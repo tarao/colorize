@@ -142,7 +142,7 @@ func fgAttribute(name string) color.Attribute {
 		return color.FgCyan
 	case "white":
 		return color.FgWhite
-	case "hiblack", "hi-black":
+	case "hiblack", "hi-black", "gray":
 		return color.FgHiBlack
 	case "hired", "hi-red":
 		return color.FgHiRed
@@ -181,7 +181,7 @@ func bgAttribute(name string) color.Attribute {
 		return color.BgCyan
 	case "white":
 		return color.BgWhite
-	case "hiblack", "hi-black":
+	case "hiblack", "hi-black", "gray":
 		return color.BgHiBlack
 	case "hired", "hi-red":
 		return color.BgHiRed
