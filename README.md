@@ -37,12 +37,12 @@ colorize --out-fg=blue --err-fg=red -- your command and arguments
 
 ### Patterns
 
-You can restrict the colorization to be applied to lines of a specific
-pattern.  The following command colorize lines start with `Error:` as
+You can restrict the colorization to be applied to matching parts of
+lines.  The following command colorize lines start with `Error:` as
 red, and lines start with `Warn:` as yellow.
 
 ```
-colorize --pattern='^Error:' --fg=red -- colorize --force --pattern='^Warn:' --fg=yellow -- your command and arguments
+colorize --pattern='^Error:.*' --fg=red -- colorize --force --pattern='^Warn:.*' --fg=yellow -- your command and arguments
 ```
 
 Notice that `colorize` command can be nested; it can colorize another

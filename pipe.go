@@ -27,8 +27,10 @@ func (p *pipe) Copy(dst io.Writer, src io.Reader) error {
 
 	for in.Scan() {
 		line := in.Text()
-		if p.color.IsColored() && p.pattern.MatchString(line) {
-			line = wrap(line)
+		if p.color.IsColored() {
+			line = p.pattern.ReplaceAllStringFunc(line, func(s string) string {
+				return wrap(s)
+			})
 		}
 		fmt.Fprintln(dst, line)
 	}
