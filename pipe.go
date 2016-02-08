@@ -8,16 +8,17 @@ import (
 )
 
 type pipe struct {
+	prefix  string
 	pattern *regexp.Regexp
 	color   *maybeColor
 }
 
-func newPipe(pattern string, color *maybeColor) (*pipe, error) {
+func newPipe(prefix, pattern string, color *maybeColor) (*pipe, error) {
 	r, err := regexp.Compile(pattern)
 	if err != nil {
 		return nil, err
 	}
-	return &pipe{r, color}, nil
+	return &pipe{prefix, r, color}, nil
 }
 
 func (p *pipe) Copy(dst io.Writer, src io.Reader) error {
@@ -26,7 +27,7 @@ func (p *pipe) Copy(dst io.Writer, src io.Reader) error {
 	wrap := p.color.Wrapper()
 
 	for in.Scan() {
-		line := in.Text()
+		line := p.prefix + in.Text()
 		if p.color.IsColored() {
 			line = p.pattern.ReplaceAllStringFunc(line, func(s string) string {
 				return wrap(s)

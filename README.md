@@ -35,6 +35,16 @@ make the stdout outputs blue and stderr outputs red.
 colorize --out-fg=blue --err-fg=red -- your command and arguments
 ```
 
+### Prefix
+
+`--prefix` option insert a prefix text at the beginning of each output
+line.  The following command make the stdout outputs blue with "out: "
+prefix and stderr outputs red with "err: " prefix.
+
+```
+colorize --out-fg=blue --out-prefix='out: ' --err-fg=red --err-prefix='err: ' -- your command and arguments
+```
+
 ### Patterns
 
 You can restrict the colorization to be applied to matching parts of
@@ -51,6 +61,9 @@ option of the second `colorize` command.  By default, `colorize`
 command ignores color options when the output is not a terminal.  You
 need `--force` to stop ignoring color options for nested `colorize`
 command, whose output is piped, not a terminal.
+
+Patterns also applies to the prefix part if `--prefix` option is
+specified together.
 
 ### Other options
 

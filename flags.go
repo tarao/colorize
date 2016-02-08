@@ -24,6 +24,11 @@ func declareFlags(prefix string) *flags {
 	}
 
 	return &flags{
+		prefix: flag.String(
+			name("prefix"),
+			"",
+			desc("Prefix to put at the beginning of each output line"),
+		),
 		pattern: flag.String(
 			name("pattern"),
 			"",
@@ -68,6 +73,7 @@ func declareFlags(prefix string) *flags {
 }
 
 type flags struct {
+	prefix       *string
 	pattern      *string
 	fg           *string
 	bg           *string

@@ -19,6 +19,13 @@ func main() {
 	force := flag.Bool("force", false, "Force colorizing.")
 	flag.Parse()
 
+	if *outFlags.prefix == "" {
+		*outFlags.prefix = *defaultFlags.prefix
+	}
+	if *errFlags.prefix == "" {
+		*errFlags.prefix = *defaultFlags.prefix
+	}
+
 	if *defaultFlags.pattern == "" {
 		*defaultFlags.pattern = ".*"
 	}
@@ -83,7 +90,7 @@ func main() {
 		outColor.Force()
 	}
 
-	outPipe, err := newPipe(*outFlags.pattern, outColor)
+	outPipe, err := newPipe(*outFlags.prefix, *outFlags.pattern, outColor)
 	if err != nil {
 		stdout.Close()
 		stderr.Close()
@@ -95,7 +102,7 @@ func main() {
 		errColor.Force()
 	}
 
-	errPipe, err := newPipe(*errFlags.pattern, errColor)
+	errPipe, err := newPipe(*errFlags.prefix, *errFlags.pattern, errColor)
 	if err != nil {
 		stdout.Close()
 		stderr.Close()
